@@ -1,0 +1,163 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='WolframDesktop 14.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       161,          7]
+NotebookDataLength[      5861,        155]
+NotebookOptionsPosition[      4662,        127]
+NotebookOutlinePosition[      5067,        143]
+CellTagsIndexPosition[      5024,        140]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"generateSQL", "[", 
+   RowBox[{"mainTable_", ",", "joins_"}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"sql", ",", "primaryKey"}], "}"}], ",", 
+    RowBox[{
+     RowBox[{"primaryKey", "=", 
+      RowBox[{"mainTable", "<>", "\"\<_id\>\""}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"sql", "=", 
+      RowBox[{"\"\<SELECT\\n\\t*\\nFROM\\n\\t\>\"", "<>", "mainTable"}]}], 
+     ";", "\[IndentingNewLine]", 
+     RowBox[{"sql", "=", 
+      RowBox[{"Fold", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+         "#1", "<>", "\"\<\\nFULL JOIN \>\"", "<>", "#2", "<>", 
+          "\"\<\\n\\tUSING(\>\"", "<>", "#2", "<>", "\"\<_id)\>\""}], "&"}], 
+        ",", "sql", ",", "joins"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"sql", "<>", "\"\<;\>\""}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.9259120225226135`*^9, 3.925912022524475*^9}, 
+   3.925914120389353*^9, {3.925914154054739*^9, 3.925914172097704*^9}, {
+   3.9259143043311577`*^9, 3.9259143048073063`*^9}},
+ CellLabel->"In[25]:=",ExpressionUUID->"4c88264a-b01d-644f-a334-6671b5bc6226"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Example", " ", "Usage"}], "*)"}], "\n", 
+  RowBox[{"generateSQL", "[", 
+   RowBox[{"\"\<purchase\>\"", ",", 
+    RowBox[{"{", 
+     RowBox[{"\"\<item\>\"", ",", "\"\<item_category\>\""}], "}"}]}], 
+   "]"}]}]], "Input",
+ CellLabel->"In[26]:=",ExpressionUUID->"e9975f10-86a5-d645-8163-6f8cd01838db"],
+
+Cell[BoxData["\<\"SELECT\\n\\t*\\nFROM\\n\\tpurchase\\nFULL JOIN \
+item\\n\\tUSING(item_id)\\nFULL JOIN \
+item_category\\n\\tUSING(item_category_id);\"\>"], "Output",
+ CellChangeTimes->{
+  3.9259141767885437`*^9, {3.9259142943858185`*^9, 3.925914310177717*^9}},
+ CellLabel->"Out[26]=",ExpressionUUID->"42157dfe-92f6-0d41-bc62-7be9abdb1d60"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"generateSQL", "[", 
+  RowBox[{"\"\<purchase\>\"", ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "\"\<item\>\"", ",", "\"\<item_category\>\"", ",", 
+     "\"\<item_category_category\>\""}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.925914168118101*^9, 3.9259141703939953`*^9}},
+ CellLabel->"In[27]:=",ExpressionUUID->"06c38a3d-5b8b-0042-9327-ed51ad7f5ca1"],
+
+Cell[BoxData["\<\"SELECT\\n\\t*\\nFROM\\n\\tpurchase\\nFULL JOIN \
+item\\n\\tUSING(item_id)\\nFULL JOIN \
+item_category\\n\\tUSING(item_category_id)\\nFULL JOIN item_category_category\
+\\n\\tUSING(item_category_category_id);\"\>"], "Output",
+ CellChangeTimes->{{3.925914162041155*^9, 3.9259141739865837`*^9}, 
+   3.9259143122451878`*^9},
+ CellLabel->"Out[27]=",ExpressionUUID->"6c9604f5-5d44-a44d-a33e-db4fcaecbf9a"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"CopyToClipboard", "[", 
+  RowBox[{"generateSQL", "[", 
+   RowBox[{"\"\<purchase\>\"", ",", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<item\>\"", ",", "\"\<item_category\>\"", ",", 
+      "\"\<item_category_category\>\""}], "}"}]}], "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.925912093001253*^9, 3.925912098109499*^9}},
+ CellLabel->"In[6]:=",ExpressionUUID->"3cdfff1c-6e4b-8340-bf31-40573b0653b4"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"122", "*", "123341"}]], "Input",
+ CellChangeTimes->{{3.925912118422159*^9, 3.9259121243654804`*^9}},
+ CellLabel->"In[5]:=",ExpressionUUID->"b795dd48-bf84-8948-91a2-60b048847011"],
+
+Cell[BoxData["15047602"], "Output",
+ CellChangeTimes->{3.9259121251447315`*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"c3b47d0f-c1e2-4149-9874-f0cd596c30c8"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"CopyToClipboard", "[", 
+  RowBox[{"generateSQL", "[", 
+   RowBox[{"\"\<use_of_item\>\"", ",", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<purchase\>\"", ",", "\"\<item\>\"", ",", "\"\<item_category\>\"", 
+      ",", "\"\<item_category_category\>\"", ",", "\"\<game\>\""}], "}"}]}], 
+   "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.9259121726807785`*^9, 3.9259121798866787`*^9}, {
+   3.925912218902117*^9, 3.925912262642084*^9}, 3.9259123649254913`*^9},
+ CellLabel->"In[11]:=",ExpressionUUID->"a777c64e-e10c-d94a-9039-f236b57122f4"]
+},
+WindowSize->{593, 561.5},
+WindowMargins->{{-4.5, Automatic}, {Automatic, 0}},
+FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (December 16, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"ab63e1d0-5186-dc4b-a31c-4fd932de3111"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[561, 20, 1148, 27, 143, "Input",ExpressionUUID->"4c88264a-b01d-644f-a334-6671b5bc6226"],
+Cell[CellGroupData[{
+Cell[1734, 51, 351, 9, 48, "Input",ExpressionUUID->"e9975f10-86a5-d645-8163-6f8cd01838db"],
+Cell[2088, 62, 340, 5, 166, "Output",ExpressionUUID->"42157dfe-92f6-0d41-bc62-7be9abdb1d60"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2465, 72, 379, 8, 48, "Input",ExpressionUUID->"06c38a3d-5b8b-0042-9327-ed51ad7f5ca1"],
+Cell[2847, 82, 416, 6, 204, "Output",ExpressionUUID->"6c9604f5-5d44-a44d-a33e-db4fcaecbf9a"]
+}, Open  ]],
+Cell[3278, 91, 423, 9, 48, "Input",ExpressionUUID->"3cdfff1c-6e4b-8340-bf31-40573b0653b4"],
+Cell[CellGroupData[{
+Cell[3726, 104, 202, 3, 28, "Input",ExpressionUUID->"b795dd48-bf84-8948-91a2-60b048847011"],
+Cell[3931, 109, 157, 2, 32, "Output",ExpressionUUID->"c3b47d0f-c1e2-4149-9874-f0cd596c30c8"]
+}, Open  ]],
+Cell[4103, 114, 555, 11, 67, "Input",ExpressionUUID->"a777c64e-e10c-d94a-9039-f236b57122f4"]
+}
+]
+*)
+
